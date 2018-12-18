@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: LightYellowGhost
+  m_Controller: {fileID: 9100000, guid: dcfbcbdf2b84829469c0a875c0ee5316, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b4871dba339fecc4c83c806adf573184, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 88daea8273a00f84eb3f3b054245e826, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ff8a744e3046a27449b0827b9b3fb1cc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 68cb03b5e7a0b38449e5cf56852d36bf, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d92aa241fd7e4154fa42fc7c6ad6b21f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 006c1bd722c67e64d8b9f5b68248bc7d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 57db3f737b47d574c9f11e7559e183ce, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 101001aa66836d54484559b9f4812f95, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 03e9a0c3ddf5ef34da10c9a0af65fa89, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 29abdfcb3ebf79845bb12173af4d4360, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 048cf591386860641a9d663dff4a4199, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 048cf591386860641a9d663dff4a4199, type: 2}
