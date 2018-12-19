@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4296288337644190}
   - component: {fileID: 61291828348689126}
   - component: {fileID: 50785648623010848}
+  - component: {fileID: 114491300554321718}
   m_Layer: 0
   m_Name: 'SmallCollectable '
   m_TagString: Collectable
@@ -52,7 +53,7 @@ Transform:
   m_GameObject: {fileID: 1005914021967630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4906262413576400}
   m_Father: {fileID: 0}
@@ -100,7 +101,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -116,6 +117,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &114491300554321718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005914021967630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a1ff67b26338047808d8ad85fbcb14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemValue: 10
+  SetGhostScared: 0
 --- !u!212 &212998222606782770
 SpriteRenderer:
   m_ObjectHideFlags: 1
