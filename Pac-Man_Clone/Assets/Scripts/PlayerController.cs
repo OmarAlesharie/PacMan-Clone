@@ -6,21 +6,20 @@ public class PlayerController : MonoBehaviour {
     
     public float speed = 5f;
     public float rayCastRange = 0.1f;
+    public GameObject player;
 
     public Transform UpperRight;
     public Transform UpperLeft;
     public Transform LowerRight;
     public Transform LowerLeft;
+
     private Animator animator;
-    private Rigidbody2D Thisrigidbody;
     private LayerMask mask;
-
-
-
+    
     // Use this for initialization
     void Start () {
-        animator = GetComponent<Animator>();
-        Thisrigidbody = GetComponent<Rigidbody2D>();
+        
+        animator = GetComponentInChildren<Animator>();
         mask = LayerMask.GetMask("Walls", "GhostsDoor");
     }
 	
@@ -57,13 +56,14 @@ public class PlayerController : MonoBehaviour {
             case 1:
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 0.5f, mask);
                     RaycastHit2D hit1 = Physics2D.Raycast(UpperRight.transform.position, Vector2.up, rayCastRange, mask);
                     RaycastHit2D hit2 = Physics2D.Raycast(UpperLeft.transform.position, Vector2.up, rayCastRange, mask);
 
-                    if (hit1.collider == null && hit2.collider == null)
+                    if (hit.collider == null && hit1.collider == null && hit2.collider == null)
                     {
-                        ResetAllTriggers();
-                        animator.SetTrigger("MoveUp");
+                        player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
+                        animator.SetBool("isMoving", true);
                         Horizontal = 0.0f;
                         Vertical = 1.0f;
                     }  
@@ -72,13 +72,14 @@ public class PlayerController : MonoBehaviour {
             case 2:
                 if (Input.GetKey(KeyCode.RightArrow))
                 {
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, mask);
                     RaycastHit2D hit1 = Physics2D.Raycast(UpperRight.transform.position, Vector2.right, rayCastRange, mask);
                     RaycastHit2D hit2 = Physics2D.Raycast(LowerRight.transform.position, Vector2.right, rayCastRange, mask);
 
-                    if (hit1.collider == null && hit2.collider == null)
+                    if (hit.collider == null && hit1.collider == null && hit2.collider == null)
                     {
-                        ResetAllTriggers();
-                        animator.SetTrigger("MoveRight");
+                        player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                        animator.SetBool("isMoving",true);
                         Horizontal = 1.0f;
                         Vertical = 0.0f;
                     }   
@@ -86,14 +87,15 @@ public class PlayerController : MonoBehaviour {
                 break;
             case 3:
                 if (Input.GetKey(KeyCode.DownArrow))
-                { 
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, mask);
                     RaycastHit2D hit1 = Physics2D.Raycast(LowerLeft.transform.position, Vector2.down, rayCastRange, mask);
                     RaycastHit2D hit2 = Physics2D.Raycast(LowerRight.transform.position, Vector2.down, rayCastRange, mask);
 
-                    if (hit1.collider == null && hit2.collider == null)
+                    if (hit.collider == null && hit1.collider == null && hit2.collider == null)
                     {
-                        ResetAllTriggers();
-                        animator.SetTrigger("MoveDown");
+                        player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 270.0f);
+                        animator.SetBool("isMoving", true);
                         Horizontal = 0.0f;
                         Vertical = -1.0f;
                     }
@@ -102,41 +104,27 @@ public class PlayerController : MonoBehaviour {
             case 4:
                 if (Input.GetKey(KeyCode.LeftArrow))
                 {
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, 0.5f, mask);
                     RaycastHit2D hit1 = Physics2D.Raycast(UpperLeft.transform.position, Vector2.left, rayCastRange, mask);
                     RaycastHit2D hit2 = Physics2D.Raycast(LowerLeft.transform.position, Vector2.left, rayCastRange, mask);
+                    
 
-                    if (hit1.collider == null && hit2.collider == null)
+                    if (hit.collider == null && hit1.collider == null && hit2.collider == null)
                     {
-                        ResetAllTriggers();
-                        animator.SetTrigger("MoveLeft");
+                        player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+                        animator.SetBool("isMoving", true);
                         Horizontal = -1.0f;
                         Vertical = 0.0f;
                     } 
                 }
                 break;
             default:
-                ResetAllTriggers();
+                animator.SetBool("isMoving", false);
                 Horizontal = 0.0f;
                 Vertical = 0.0f;
                 break;
         }
 
-        //animator.SetInteger("Horizontal", (int)Horizontal);
-        //animator.SetInteger("Vertical", (int)Vertical);
-
-        
-
-        Vector2 position = new Vector2(Horizontal * speed * Time.deltaTime, Vertical * speed * Time.deltaTime);
-        Thisrigidbody.MovePosition(Thisrigidbody.position + position);
-
-
-    }
-
-    void ResetAllTriggers()
-    {
-        animator.ResetTrigger("MoveUp");
-        animator.ResetTrigger("MoveRight");
-        animator.ResetTrigger("MoveLeft");
-        animator.ResetTrigger("MoveDown");
+        transform.Translate(Horizontal * speed * Time.deltaTime, Vertical * speed * Time.deltaTime, 0);
     }
 }

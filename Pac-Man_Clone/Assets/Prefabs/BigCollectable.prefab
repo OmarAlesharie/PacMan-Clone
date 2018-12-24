@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemValue: 50
-  SetGhostScared: 0
+  SetGhostScared: 1
 --- !u!114 &114074992635257964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemValue: 50
-  SetGhostScared: 0
+  SetGhostScared: 1
 --- !u!114 &114177323752447560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemValue: 50
-  SetGhostScared: 0
+  SetGhostScared: 1
 --- !u!114 &114405724186646550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemValue: 50
-  SetGhostScared: 0
+  SetGhostScared: 1
 --- !u!212 &212137077818546714
 SpriteRenderer:
   m_ObjectHideFlags: 1

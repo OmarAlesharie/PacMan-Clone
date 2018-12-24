@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Collectable
   - Wall
+  - GhostsRoom
+  - FrontOFGhostsRoom
+  - GhostsDoor
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,8 @@ TagManager:
   - 
   - Walls
   - GhostsDoor
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 

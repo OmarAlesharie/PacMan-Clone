@@ -11,8 +11,13 @@ public class ItemCollected : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            if (SetGhostScared)
+            {
+                GameManager.instance.PlayerBecomeStrong();
+            }
             GameManager.instance.UpdatePoints(ItemValue);
             Destroy(this.gameObject);
+            
         }
     }
 }

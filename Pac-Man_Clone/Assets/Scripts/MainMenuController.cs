@@ -24,6 +24,8 @@ public class MainMenuController : MonoBehaviour {
     private Animator LightBlueAnimator;
     private Animator LightYellowAnimator;
 
+    private SpriteRenderer PLayerSpriteRenderer;
+
     private byte movingDirection;   //0 left, 1 right
 
 
@@ -34,6 +36,8 @@ public class MainMenuController : MonoBehaviour {
         PinkAnimator = Pink.GetComponent<Animator>();
         LightBlueAnimator = LightBlue.GetComponent<Animator>();
         LightYellowAnimator = LightYellow.GetComponent<Animator>();
+
+        PLayerSpriteRenderer = Player.GetComponent<SpriteRenderer>();
 
         StartCoroutine(MainScreen());
 
@@ -62,11 +66,22 @@ public class MainMenuController : MonoBehaviour {
 
         if (movingDirection == 0)
         {
-            PlayerAnimator.SetTrigger("MoveLeft");
-            RedAnimator.SetInteger("Horizontal", -1);
-            PinkAnimator.SetInteger("Horizontal", -1);
-            LightBlueAnimator.SetInteger("Horizontal", -1);
-            LightYellowAnimator.SetInteger("Horizontal", -1);
+            Player.transform.localScale = new Vector3(1.0F, 1.0F, 0);
+
+            PlayerAnimator.SetTrigger("isMoving");
+            PLayerSpriteRenderer.flipX = true;
+
+            RedAnimator.SetBool("movingLeft", true);
+            RedAnimator.SetBool("isScared", false);
+
+            PinkAnimator.SetBool("movingLeft", true);
+            PinkAnimator.SetBool("isScared", false);
+
+            LightBlueAnimator.SetBool("movingLeft", true);
+            LightBlueAnimator.SetBool("isScared", false);
+
+            LightYellowAnimator.SetBool("movingLeft", true);
+            LightYellowAnimator.SetBool("isScared", false);
 
             Player.transform.Translate(-speed * Time.deltaTime, 0, 0);
             Red.transform.Translate(-speed * Time.deltaTime, 0, 0);
@@ -82,10 +97,20 @@ public class MainMenuController : MonoBehaviour {
 
         if (movingDirection == 1)
         {
-            PlayerAnimator.SetTrigger("MoveRight");
+            Player.transform.localScale = new Vector3(2.0F, 2.0F, 0);
+            PlayerAnimator.SetTrigger("isMoving");
+            PLayerSpriteRenderer.flipX = false;
+
+            RedAnimator.SetBool("movingLeft", false);
             RedAnimator.SetBool("isScared", true);
+
+            PinkAnimator.SetBool("movingLeft", false);
             PinkAnimator.SetBool("isScared", true);
+
+            LightBlueAnimator.SetBool("movingLeft", false);
             LightBlueAnimator.SetBool("isScared", true);
+
+            LightYellowAnimator.SetBool("movingLeft", false);
             LightYellowAnimator.SetBool("isScared", true);
 
             Player.transform.Translate(speed * Time.deltaTime, 0, 0);
@@ -96,10 +121,10 @@ public class MainMenuController : MonoBehaviour {
 
             if (Player.transform.position.x > 12)
             {
-                RedAnimator.SetBool("isScared", false);
-                PinkAnimator.SetBool("isScared", false);
-                LightBlueAnimator.SetBool("isScared", false);
-                LightYellowAnimator.SetBool("isScared", false);
+                //RedAnimator.SetBool("isScared", false);
+                //PinkAnimator.SetBool("isScared", false);
+                //LightBlueAnimator.SetBool("isScared", false);
+                //LightYellowAnimator.SetBool("isScared", false);
                 movingDirection = 0;
             }
         }
