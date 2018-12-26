@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 95319452940086984}
   - component: {fileID: 61456603255163868}
   - component: {fileID: 50573766319661128}
+  - component: {fileID: 114578463709222990}
   m_Layer: 0
   m_Name: LightBlueGhost
   m_TagString: Enemy
@@ -36,8 +37,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1596055124898514}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.7, y: 0.25, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,6 +107,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114578463709222990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596055124898514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b45b8d28f856e54c9dfd29348cd86d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GhostsRoom: {fileID: 0}
+  FrontOfGhostsRoom: {fileID: 0}
+  speed: 2
+  rayScanRange: 1
+  Player: {fileID: 0}
 --- !u!212 &212730911836441620
 SpriteRenderer:
   m_ObjectHideFlags: 1

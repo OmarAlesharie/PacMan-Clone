@@ -14,6 +14,8 @@ public class MainMenuController : MonoBehaviour {
     public GameObject LightBlue;
     public GameObject LightYellow;
 
+    public GamePlayData Save;
+
     public float speed = 0f;
 
     public Text HitTheSpaseButton;
@@ -31,6 +33,8 @@ public class MainMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Save.SetLifes(3);
+        Save.SetPoints(0);
         PlayerAnimator = Player.GetComponent<Animator>();
         RedAnimator = Red.GetComponent<Animator>();
         PinkAnimator = Pink.GetComponent<Animator>();

@@ -25,7 +25,14 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (GameManager.instance.IsCompleted())
+        {
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
+            return;
+        }
 
+        if (GameManager.instance.IsLost()) return;
 
         float Horizontal = 0.0f;
         float Vertical = 0.0f;
@@ -126,5 +133,18 @@ public class PlayerController : MonoBehaviour {
         }
 
         transform.Translate(Horizontal * speed * Time.deltaTime, Vertical * speed * Time.deltaTime, 0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            if (!GameManager.instance.IsStrong())
+            {
+                animator.SetBool("isMoving", false);
+                animator.SetTrigger("isDying");
+                GameManager.instance.PlayerLost();
+            }
+        }
     }
 }

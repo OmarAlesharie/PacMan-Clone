@@ -53,3 +53,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 0}
   Info: {fileID: 0}
+  LifesText: {fileID: 0}
+  Save: {fileID: 11400000, guid: 2a14d4b2ce4d9fa4eb3a936dbe3b7d94, type: 2}
+  playerStartingPosition: {fileID: 0}
+  RedStartingPosition: {fileID: 0}
+  PinkStartingPosition: {fileID: 0}
+  lightYellowStartingPosition: {fileID: 0}
+  lightBlueStartingPosition: {fileID: 0}
+  Player: {fileID: 0}
+  RedGhost: {fileID: 0}
+  PinkGhost: {fileID: 0}
+  LightYellowGhost: {fileID: 0}
+  LightBlueGhost: {fileID: 0}

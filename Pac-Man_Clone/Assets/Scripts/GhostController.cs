@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GhostController : MonoBehaviour {
 
@@ -40,16 +41,45 @@ public class GhostController : MonoBehaviour {
 
         ghostStatus = GhostStatus.InRoom;
 
+        ChooseTheFirtDirection();
+
+        animator = GetComponent<Animator>();
+    }
+
+    void ChooseTheFirtDirection()
+    {
         int rand = Random.Range(0, 2);
         if (rand == 0) ghostDirection = GhostDirection.Left;
         if (rand == 1) ghostDirection = GhostDirection.Right;
-
-        animator = GetComponent<Animator>();
-
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            if (ghostStatus == GhostStatus.Scared)
+            {
+                animator.SetBool("movingUp", false);
+                animator.SetBool("movingDown", false);
+                animator.SetBool("movingRight", false);
+                animator.SetBool("movingLeft", false);
+                animator.SetBool("isScared", false);
+                animator.SetBool("isEaten", true);
+                ghostStatus = GhostStatus.Eaten;
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if (GameManager.instance.IsCompleted()) return;
+
+        if (GameManager.instance.IsLost())
+        {
+            ghostStatus = GhostStatus.InRoom;
+            ChooseTheFirtDirection();
+            return;
+        }
 
         if (GameManager.instance.IsStrong())
         {
@@ -78,13 +108,59 @@ public class GhostController : MonoBehaviour {
                 Scared();
                 break;
             case GhostStatus.Eaten:
+                StartCoroutine(BackToTheRoom());
                 break;
         }
     }
 
+    IEnumerator BackToTheRoom()
+    {
+        transform.position = Vector3.Lerp(transform.position, GhostsRoom.position, speed * Time.deltaTime);
+        yield return null;
+        ghostStatus = GhostStatus.InRoom;
+    }
+
     private void LetChase()
     {
+        RaycastHit2D hit;
         if (ghostStatus != GhostStatus.Chasing) return;
+        switch (ghostDirection)
+        {
+            case GhostDirection.Up:
+                hit = Physics2D.Raycast(transform.position, new Vector2(0.0f,1.0f), rayScanRange, Playermask);
+                if (hit.collider == null)
+                {
+                    ghostStatus = GhostStatus.Patroling;
+                }else
+                    transform.Translate(0.0f * speed * Time.deltaTime, 1.0f * speed * Time.deltaTime, 0);
+                break;
+            case GhostDirection.Right:
+                hit = Physics2D.Raycast(transform.position, new Vector2(1.0f, 0.0f), rayScanRange, Playermask);
+                if (hit.collider == null)
+                {
+                    ghostStatus = GhostStatus.Patroling;
+                }else
+                    transform.Translate(1.0f * speed * Time.deltaTime, 0.0f * speed * Time.deltaTime, 0);
+
+                break;
+            case GhostDirection.Down:
+                hit = Physics2D.Raycast(transform.position, new Vector2(0.0f, -1.0f), rayScanRange, Playermask);
+                if (hit.collider == null)
+                {
+                    ghostStatus = GhostStatus.Patroling;
+                }else
+                    transform.Translate(0.0f * speed * Time.deltaTime, -1.0f * speed * Time.deltaTime, 0);
+
+                break;
+            case GhostDirection.Left:
+                hit = Physics2D.Raycast(transform.position, new Vector2(-1.0f, 0.0f), rayScanRange, Playermask);
+                if (hit.collider == null)
+                {
+                    ghostStatus = GhostStatus.Patroling;
+                }else
+                    transform.Translate(-1.0f * speed * Time.deltaTime, 0.0f * speed * Time.deltaTime, 0);
+                break;
+        }
     }
 
     private void Patrol()
@@ -92,6 +168,13 @@ public class GhostController : MonoBehaviour {
         if (ghostStatus != GhostStatus.Patroling) return;
         Vector3 Diretion = ChooseDirection();
         SetGhstAnimation();
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(Diretion.x,Diretion.y), rayScanRange, Playermask);
+        if (hit.collider != null)
+        {
+            ghostStatus = GhostStatus.Chasing;
+        }
+
         transform.Translate(Diretion.x * speed * Time.deltaTime, Diretion.y * speed * Time.deltaTime, 0);
     }
 
@@ -99,7 +182,6 @@ public class GhostController : MonoBehaviour {
     {
         if (!GameManager.instance.IsStrong())
         {
-            Debug.Log("NotScared");
             ghostStatus = GhostStatus.Patroling;
             return;
         }
@@ -117,6 +199,7 @@ public class GhostController : MonoBehaviour {
             animator.SetBool("movingRight", false);
             animator.SetBool("movingLeft", false);
             animator.SetBool("isScared", true);
+            animator.SetBool("isEaten", false);
             return;
         }
 
@@ -128,6 +211,7 @@ public class GhostController : MonoBehaviour {
                 animator.SetBool("movingDown", false);
                 animator.SetBool("movingRight", false);
                 animator.SetBool("movingLeft", false);
+                animator.SetBool("isEaten", false);
                 break;
             case GhostDirection.Right:
                 animator.SetBool("isScared", false);
@@ -135,6 +219,7 @@ public class GhostController : MonoBehaviour {
                 animator.SetBool("movingDown", false);
                 animator.SetBool("movingRight", true);
                 animator.SetBool("movingLeft", false);
+                animator.SetBool("isEaten", false);
                 break;
             case GhostDirection.Down:
                 animator.SetBool("isScared", false);
@@ -142,6 +227,7 @@ public class GhostController : MonoBehaviour {
                 animator.SetBool("movingDown", true);
                 animator.SetBool("movingRight", false);
                 animator.SetBool("movingLeft", false);
+                animator.SetBool("isEaten", false);
                 break;
             case GhostDirection.Left:
                 animator.SetBool("isScared", false);
@@ -149,6 +235,7 @@ public class GhostController : MonoBehaviour {
                 animator.SetBool("movingDown", false);
                 animator.SetBool("movingRight", false);
                 animator.SetBool("movingLeft", true);
+                animator.SetBool("isEaten", false);
                 break;
         }
     }
