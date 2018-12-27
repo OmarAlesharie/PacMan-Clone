@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4896513272406192}
   - component: {fileID: 61485796062893360}
   - component: {fileID: 50120644438722638}
+  - component: {fileID: 114659189146829860}
   m_Layer: 0
   m_Name: Strawberry
   m_TagString: Collectable
@@ -116,6 +117,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114659189146829860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1114926286535502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb6e154f81508b4789bcca39f2df29e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 300
+  LifeTime: 10
 --- !u!212 &212936098997664490
 SpriteRenderer:
   m_ObjectHideFlags: 1

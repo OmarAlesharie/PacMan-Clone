@@ -359,7 +359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.26900002, y: 0.031000001}
   m_AnchorMax: {x: 0.31761017, y: 0.10828926}
-  m_AnchoredPosition: {x: -0.19999695, y: 0.11999512}
+  m_AnchoredPosition: {x: -0.2000122, y: 0.11999512}
   m_SizeDelta: {x: 0.6500015, y: 3.6650085}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &249455806
@@ -613,6 +613,11 @@ Prefab:
       propertyPath: Player
       value: 
       objectReference: {fileID: 383664822}
+    - target: {fileID: 114578463709222990, guid: f6d7078b4a56ede48a3abba61b9f042a,
+        type: 2}
+      propertyPath: rayScanRange
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6d7078b4a56ede48a3abba61b9f042a, type: 2}
   m_IsPrefabAsset: 0
@@ -949,6 +954,11 @@ Prefab:
       propertyPath: Player
       value: 
       objectReference: {fileID: 383664822}
+    - target: {fileID: 114994561448790404, guid: cb2e99116f8f7dc448649be5fbc5980e,
+        type: 2}
+      propertyPath: rayScanRange
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb2e99116f8f7dc448649be5fbc5980e, type: 2}
   m_IsPrefabAsset: 0
@@ -1475,6 +1485,11 @@ Prefab:
       propertyPath: Player
       value: 
       objectReference: {fileID: 383664822}
+    - target: {fileID: 114322217901337998, guid: 91a2e2e00d503b94caa5de2124daf7c5,
+        type: 2}
+      propertyPath: rayScanRange
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a2e2e00d503b94caa5de2124daf7c5, type: 2}
   m_IsPrefabAsset: 0
@@ -1532,6 +1547,11 @@ Prefab:
       propertyPath: Player
       value: 
       objectReference: {fileID: 383664822}
+    - target: {fileID: 114385629085103648, guid: 814f2ee4efb178648a8aef0284e45732,
+        type: 2}
+      propertyPath: rayScanRange
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 814f2ee4efb178648a8aef0284e45732, type: 2}
   m_IsPrefabAsset: 0

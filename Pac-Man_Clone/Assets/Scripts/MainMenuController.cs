@@ -33,8 +33,10 @@ public class MainMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Cursor.visible = false;
         Save.SetLifes(3);
         Save.SetPoints(0);
+        Save.SetScorePerLife(0);
         PlayerAnimator = Player.GetComponent<Animator>();
         RedAnimator = Red.GetComponent<Animator>();
         PinkAnimator = Pink.GetComponent<Animator>();

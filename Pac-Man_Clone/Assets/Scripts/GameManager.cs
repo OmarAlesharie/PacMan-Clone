@@ -12,6 +12,21 @@ public class GameManager : MonoBehaviour {
     public Text LifesText;
     public GamePlayData Save;
 
+    public AudioClip EatingCollactables_FX;
+    public AudioClip EatingGhost_FX;
+    public AudioClip EatingFruit_FX;
+    public AudioClip PlayerDied_FX;
+
+    public AudioSource FX_Source;
+    public AudioSource FX_Source2;
+    public AudioSource FX_Source_ExtraLife;
+
+
+    public int baseGhostScore = 200;
+    public int MaxGhostScore = 1600;
+
+    public int LifePerPoints = 20000;
+
     public Transform playerStartingPosition;
     public Transform RedStartingPosition;
     public Transform PinkStartingPosition;
@@ -24,12 +39,16 @@ public class GameManager : MonoBehaviour {
     public GameObject LightYellowGhost;
     public GameObject LightBlueGhost;
 
+    public GameObject[] SpecialItems;
+
     private int PlayerLifes;
     private bool PlayerisStrong;
     private bool level_completed;
     private bool playerLost;
     private int Points;
     private int CollectablesAmount;
+    private int initialBaseGhostScore;
+    private int pointsCounterperlife;
 
     void Awake()
     {
@@ -41,7 +60,12 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
-        //DontDestroyOnLoad(gameObject);
+    }
+
+    private void PutNewSpecialItem()
+    {
+        int selectedItem = Random.Range(0, SpecialItems.Length);
+        Instantiate(SpecialItems[selectedItem],playerStartingPosition.position, playerStartingPosition.rotation);
     }
 
     public bool IsCompleted()
@@ -51,20 +75,44 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
+        pointsCounterperlife = 0;
         Points = Save.GetPoints();
         PlayerLifes = Save.GetLifes();
+        pointsCounterperlife = Save.GetScorePerLife();
         ScoreText.text = "Scores\n" + Points;
         LifesText.text = PlayerLifes.ToString();
         ResetGamePLayData();
         CollectablesAmount = GameObject.FindGameObjectsWithTag("Collectable").Length;
+        initialBaseGhostScore = baseGhostScore;
+
+        InvokeRepeating("PutNewSpecialItem", 20.0f, 20.0f);
+    }
+
+    private void CheckIfNewLife(int newPoints)
+    {
+        pointsCounterperlife += newPoints;
+        if (pointsCounterperlife >= LifePerPoints)
+        {
+            PlayerLifes++;
+            FX_Source_ExtraLife.Play();
+            pointsCounterperlife = 0;
+            LifesText.text = PlayerLifes.ToString();
+        }
     }
 
     public void UpdatePoints(int points)
     {
         Points += points;
+        CheckIfNewLife(points);
+
+        FX_Source.clip = EatingCollactables_FX;
+        if (!FX_Source.isPlaying)
+        {
+            FX_Source.Play();
+        }
+
         ScoreText.text = "Scores\n" + Points;
         CollectablesAmount--;
-
         if (CollectablesAmount <= 0)
         {
             Info.text = "Level Completed!!";
@@ -73,11 +121,38 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void UpdatePointsFromGhosts()
+    {
+        Points += baseGhostScore;
+        FX_Source2.clip = EatingGhost_FX;
+        if (!FX_Source2.isPlaying)
+        {
+            FX_Source2.Play();
+        }
+        CheckIfNewLife(baseGhostScore);
+        ScoreText.text = "Scores\n" + Points;
+        baseGhostScore *= 2;
+        if (baseGhostScore > MaxGhostScore)
+        {
+            baseGhostScore = initialBaseGhostScore;
+        }
+    }
+
+    public void UpdatePointsFromSpecialItem(int value)
+    {
+        Points += value;
+        CheckIfNewLife(value);
+        FX_Source.clip = EatingFruit_FX;
+        FX_Source.Play();
+        ScoreText.text = "Scores\n" + Points;
+    }
+
     IEnumerator NextLevel()
     {
         yield return new WaitForSeconds(3.0f);
         Save.SetPoints(Points);
         Save.SetLifes(PlayerLifes);
+        Save.SetScorePerLife(pointsCounterperlife);
         SceneManager.LoadScene(1);
     }
 
@@ -89,11 +164,15 @@ public class GameManager : MonoBehaviour {
     public void PlayerLost()
     {
         PlayerLifes--;
+        FX_Source.Stop();
+        FX_Source.clip = PlayerDied_FX;
+        FX_Source.Play();
         LifesText.text = PlayerLifes.ToString();
         playerLost = true;
         if (PlayerLifes <= 0)
         {
             Info.text = "Game Over!!";
+            StartCoroutine(LoadMainScreen());
         }
         else
             StartCoroutine(ResumeTheGame());

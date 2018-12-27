@@ -66,6 +66,7 @@ public class GhostController : MonoBehaviour {
                 animator.SetBool("isScared", false);
                 animator.SetBool("isEaten", true);
                 ghostStatus = GhostStatus.Eaten;
+                GameManager.instance.UpdatePointsFromGhosts();
             }
         }
     }

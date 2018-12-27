@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemValue: 50
-  SetGhostScared: 0
+  SetGhostScared: 1
 --- !u!212 &212569702205740276
 SpriteRenderer:
   m_ObjectHideFlags: 1

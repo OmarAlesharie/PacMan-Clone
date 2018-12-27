@@ -7,6 +7,7 @@ public class GamePlayData : ScriptableObject {
 
     int Points;
     int Lifes;
+    int ScorePerLife;
 
     public void SetPoints(int amount)
     {
@@ -24,5 +25,14 @@ public class GamePlayData : ScriptableObject {
     public int GetLifes()
     {
         return Lifes;
+    }
+
+    public void SetScorePerLife(int amount)
+    {
+        ScorePerLife = amount;
+    }
+    public int GetScorePerLife()
+    {
+        return ScorePerLife;
     }
 }
